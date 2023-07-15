@@ -1,4 +1,3 @@
-this will not compile
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Contacts.Data;
