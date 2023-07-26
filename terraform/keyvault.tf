@@ -1,8 +1,8 @@
 resource "azurerm_key_vault" "main" {
-  name                = "kv-${replace(local.suffix, "devopsvanillaexample", "orldevops")}"
-  resource_group_name = azurerm_resource_group.main.name
+  name                = "kv-devvanex-${terraform.workspace}"
+  resource_group_name = data.azurerm_resource_group.main.name
   sku_name            = "standard"
-  location            = azurerm_resource_group.main.location
+  location            = data.azurerm_resource_group.main.location
   tenant_id           = data.azurerm_client_config.current.tenant_id
 
   access_policy = [

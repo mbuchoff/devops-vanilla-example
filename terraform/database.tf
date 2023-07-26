@@ -4,8 +4,8 @@ resource "random_password" "password" {
 
 resource "azurerm_mssql_server" "main" {
   name                         = "sql-${local.suffix}"
-  resource_group_name          = azurerm_resource_group.main.name
-  location                     = azurerm_resource_group.main.location
+  resource_group_name          = data.azurerm_resource_group.main.name
+  location                     = data.azurerm_resource_group.main.location
   version                      = "12.0"
   administrator_login          = local.mssql_user
   administrator_login_password = random_password.password.result
@@ -26,7 +26,7 @@ output "sqlserver_username" {
 resource "azurerm_mssql_database" "main" {
   name      = "db-${local.suffix}"
   server_id = azurerm_mssql_server.main.id
-  sku_name  = "Basic"
+  sku_name  = "GP_S_Gen5_1"
 }
 
 output "sqlserver_db" {

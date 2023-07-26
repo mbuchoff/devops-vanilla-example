@@ -13,7 +13,7 @@ if (env.ToLower() == "development")
     env = DEV_ENVIRONMENT;
 }
 
-var secretClient = new SecretClient(new Uri($"https://kv-orldevops-{env}.vault.azure.net/"),
+var secretClient = new SecretClient(new Uri($"https://kv-devvanex-{env}.vault.azure.net/"),
     new DefaultAzureCredential());
 var secret = await secretClient.GetSecretAsync("sqlconnectionstring");
 var sqlConnectionString = secret.Value.Value;

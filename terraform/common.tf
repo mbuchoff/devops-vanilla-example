@@ -21,11 +21,11 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {}
 
 locals {
-  suffix     = "orldevops-${terraform.workspace}"
+  name       = "devopsvanillaexample"
+  suffix     = "${local.name}-${terraform.workspace}"
   mssql_user = "sqladmin"
 }
 
-resource "azurerm_resource_group" "main" {
-  location = "eastus"
-  name     = "rg-${local.suffix}"
+data "azurerm_resource_group" "main" {
+  name = "rg-${local.name}"
 }
