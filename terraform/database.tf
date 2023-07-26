@@ -24,9 +24,11 @@ output "sqlserver_username" {
 }
 
 resource "azurerm_mssql_database" "main" {
-  name      = "db-${local.suffix}"
-  server_id = azurerm_mssql_server.main.id
-  sku_name  = "GP_S_Gen5_1"
+  name                        = "db-${local.suffix}"
+  server_id                   = azurerm_mssql_server.main.id
+  sku_name                    = "GP_S_Gen5_1"
+  min_capacity                = 1
+  auto_pause_delay_in_minutes = -1
 }
 
 output "sqlserver_db" {
