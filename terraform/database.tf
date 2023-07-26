@@ -27,8 +27,8 @@ resource "azurerm_mssql_database" "main" {
   name                        = "db-${local.suffix}"
   server_id                   = azurerm_mssql_server.main.id
   sku_name                    = "GP_S_Gen5_1"
-  min_capacity                = 1
-  auto_pause_delay_in_minutes = -1
+  min_capacity                = 0.5
+  auto_pause_delay_in_minutes = 60
 }
 
 output "sqlserver_db" {
