@@ -1,1 +1,1 @@
-Run terraform to scaffold the infrastructure
+Run tofu to scaffold the infrastructure

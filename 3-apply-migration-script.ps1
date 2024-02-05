@@ -1,9 +1,9 @@
-# Get the output variables from terraform
-$serverName = & terraform -chdir=terraform output -raw sqlserver_name
-$resourceGroup = & terraform -chdir=terraform output -raw sqlserver_rg
-$adminUsername = & terraform -chdir=terraform output -raw sqlserver_username
-$databaseName = & terraform -chdir=terraform output -raw sqlserver_db
-$adminPassword = & terraform -chdir=terraform output -raw sqlserver_password
+# Get the output variables from tofu
+$serverName = & tofu -chdir=tofu output -raw sqlserver_name
+$resourceGroup = & tofu -chdir=tofu output -raw sqlserver_rg
+$adminUsername = & tofu -chdir=tofu output -raw sqlserver_username
+$databaseName = & tofu -chdir=tofu output -raw sqlserver_db
+$adminPassword = & tofu -chdir=tofu output -raw sqlserver_password
 
 # Construct the fully qualified server name
 $serverUrl = $serverName + ".database.windows.net"
