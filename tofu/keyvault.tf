@@ -1,5 +1,5 @@
 resource "azurerm_key_vault" "main" {
-  name                = "kv-devvanex-${terraform.workspace}"
+  name                = "kv-devvanex-${terraform.workspace}-${local.last4SubscriptionId}"
   resource_group_name = data.azurerm_resource_group.main.name
   sku_name            = "standard"
   location            = data.azurerm_resource_group.main.location

@@ -1,7 +1,5 @@
 terraform {
   backend "azurerm" {
-    resource_group_name  = "tfstate"
-    storage_account_name = "sadevopsvanillaexample"
     container_name       = "terraform"
     key                  = "terraform.tfstate"
   }
@@ -21,11 +19,15 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {}
 
 locals {
+  last4SubscriptionId = substr(data.azurerm_subscription.azure_subscription.subscription_id, length(data.azurerm_subscription.azure_subscription.subscription_id) - 4, 4)
   name       = "devopsvanillaexample"
-  suffix     = "${local.name}-${terraform.workspace}"
+  suffix     = "${local.name}-${terraform.workspace}-${local.last4SubscriptionId}"
   mssql_user = "sqladmin"
 }
 
 data "azurerm_resource_group" "main" {
-  name = "rg-${local.name}"
+  name = "rg-${local.name}-${local.last4SubscriptionId}"
+}
+
+data "azurerm_subscription" "azure_subscription" {
 }
