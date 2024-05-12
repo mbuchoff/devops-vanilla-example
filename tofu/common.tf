@@ -26,7 +26,7 @@ locals {
 }
 
 data "azurerm_resource_group" "main" {
-  name = "rg-${local.name}"
+  name = "rg-${local.name}-${local.last4SubscriptionId}"
 }
 
 data "azurerm_subscription" "azure_subscription" {
