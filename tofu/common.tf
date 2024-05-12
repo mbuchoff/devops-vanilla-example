@@ -19,9 +19,9 @@ provider "azurerm" {
 data "azurerm_client_config" "current" {}
 
 locals {
-  last4SubscriptionId = substr(data.azurerm_subscription.primary.subscription_id, length(data.azurerm_subscription.primary.subscription_id) - 4, 4)
+  last4SubscriptionId = substr(data.azurerm_subscription.azure_subscription.subscription_id, length(data.azurerm_subscription.azure_subscription.subscription_id) - 4, 4)
   name       = "devopsvanillaexample"
-  suffix     = "${local.name}-${terraform.workspace}-${last4SubscriptionId}"
+  suffix     = "${local.name}-${terraform.workspace}-${local.last4SubscriptionId}"
   mssql_user = "sqladmin"
 }
 
