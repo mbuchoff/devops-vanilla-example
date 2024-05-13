@@ -28,7 +28,7 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-if (app.Environment.EnvironmentName == DEV_ENVIRONMENT)
+if (app.Environment.EnvironmentName.Equals("Development", StringComparison.CurrentCultureIgnoreCase))
 {
     app.UseDeveloperExceptionPage();
 }
