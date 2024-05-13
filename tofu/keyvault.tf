@@ -5,26 +5,20 @@ resource "azurerm_key_vault" "main" {
   location            = data.azurerm_resource_group.main.location
   tenant_id           = data.azurerm_client_config.current.tenant_id
 
-  access_policy = [
-    {
-      application_id          = ""
-      tenant_id               = data.azurerm_client_config.current.tenant_id
-      object_id               = data.azurerm_client_config.current.object_id
-      secret_permissions      = ["Set", "Get", "List", "Delete"]
-      certificate_permissions = []
-      key_permissions         = []
-      storage_permissions     = []
-    },
-    {
-      application_id          = ""
-      object_id               = azurerm_windows_web_app.main.identity.0.principal_id
-      tenant_id               = data.azurerm_client_config.current.tenant_id
-      secret_permissions      = ["Get"]
-      certificate_permissions = []
-      key_permissions         = []
-      storage_permissions     = []
-    },
-  ]
+}
+
+resource "azurerm_key_vault_access_policy" "self" {
+  key_vault_id       = azurerm_key_vault.main.id
+  tenant_id          = data.azurerm_client_config.current.tenant_id
+  object_id          = data.azurerm_client_config.current.object_id
+  secret_permissions = ["Set", "Get", "List", "Delete"]
+}
+
+resource "azurerm_key_vault_access_policy" "webapp" {
+  key_vault_id       = azurerm_key_vault.main.id
+  object_id          = azurerm_windows_web_app.main.identity.0.principal_id
+  tenant_id          = data.azurerm_client_config.current.tenant_id
+  secret_permissions = ["Get"]
 }
 
 resource "azurerm_key_vault_secret" "main" {

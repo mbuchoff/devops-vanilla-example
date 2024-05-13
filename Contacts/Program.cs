@@ -5,20 +5,22 @@ using Azure.Identity;
 
 const string DEV_ENVIRONMENT = "dev";
 
+var builder = WebApplication.CreateBuilder(args);
+
 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? DEV_ENVIRONMENT;
+var keyvaultUrl = builder.Configuration["KEYVAULT_URL"] ?? throw new Exception("Keyvault url not found");
 
 // For some reason, I keep seeing "development" when running EF Core
-if (env.ToLower() == "development")
+if (env.Equals("development", StringComparison.CurrentCultureIgnoreCase))
 {
     env = DEV_ENVIRONMENT;
 }
 
-var secretClient = new SecretClient(new Uri($"https://kv-devvanex-{env}.vault.azure.net/"),
+var secretClient = new SecretClient(new Uri(keyvaultUrl),
     new DefaultAzureCredential());
 var secret = await secretClient.GetSecretAsync("sqlconnectionstring");
 var sqlConnectionString = secret.Value.Value;
 
-var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ModelStateErrorContext>(options =>
    options.UseSqlServer(sqlConnectionString));
 

@@ -18,6 +18,7 @@ resource "azurerm_windows_web_app" "main" {
 
   app_settings = {
     "ASPNETCORE_ENVIRONMENT" = terraform.workspace
+    "KEYVAULT_URL"           = azurerm_key_vault.main.vault_uri
   }
 
   identity {
