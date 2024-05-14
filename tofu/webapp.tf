@@ -3,7 +3,7 @@ resource "azurerm_service_plan" "main" {
   location            = "eastus"
   os_type             = "Windows"
   resource_group_name = data.azurerm_resource_group.main.name
-  sku_name            = "B1"
+  sku_name            = "S1"
 }
 
 resource "azurerm_windows_web_app" "main" {
@@ -14,6 +14,11 @@ resource "azurerm_windows_web_app" "main" {
 
   site_config {
     always_on = false
+    virtual_application {
+      physical_path = "site\\wwwroot"
+      preload       = false
+      virtual_path  = "/"
+    }
   }
 
   app_settings = {
