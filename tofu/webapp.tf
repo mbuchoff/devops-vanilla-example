@@ -3,7 +3,7 @@ resource "azurerm_service_plan" "main" {
   location            = "eastus"
   os_type             = "Windows"
   resource_group_name = data.azurerm_resource_group.main.name
-  sku_name            = "S1"
+  sku_name            = "D1"
 }
 
 resource "azurerm_windows_web_app" "main" {
